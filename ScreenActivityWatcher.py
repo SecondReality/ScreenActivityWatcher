@@ -6,6 +6,7 @@ from datetime import datetime
 
 pushBulletApiKey = "PUSH BULLET API KEY"
 notificationTitle = "NOTIFICATION TITLE"
+threshold = 0.999
 
 def getScreenNorm():
     image = ImageGrab.grab()
@@ -20,7 +21,7 @@ while True:
     time.sleep(30)
     image2 = getScreenNorm()
     difference = np.sum(image1*image2)
-    if difference > 0.999 and cycles > 10:
+    if difference > threshold and cycles > 10:
         cycles = 0
         pb = Pushbullet(pushBulletApiKey)
         push = pb.push_note(notificationTitle, "No motion detected at "+str(datetime.now()))
